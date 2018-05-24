@@ -24,6 +24,14 @@
       </v-tooltip>
 
       <v-tooltip bottom>
+        <v-btn flat icon color="pink" slot="activator" @click="refreshRepositories">
+          <v-icon>refresh</v-icon>
+        </v-btn>
+
+        <span>refresh</span>
+      </v-tooltip>
+
+      <v-tooltip bottom>
         <v-chip slot="activator">
           <v-avatar>
             <v-icon>stars</v-icon>
@@ -135,6 +143,16 @@
       solo
       v-model="searchInput">
     </v-text-field>
+
+    <v-snackbar
+      bottom
+      color="pink"
+      :timeout="snackbarTimeout"
+      v-model="snackbarVisibility"
+    >
+      Data has been refreshed ! =D
+    </v-snackbar>
+
   </v-container>
 </template>
 
@@ -148,11 +166,14 @@ export default {
 
   data () {
     return {
+      darkTheme: localStorage.getItem('darkTheme') === 'true',
       dialogSettings: false,
-      filteredRepositories: {}, // useful for search
+      // search's results repos
+      filteredRepositories: {},
       noResult: false,
       searchInput: '',
-      darkTheme: localStorage.getItem('darkTheme') === 'true',
+      snackbarTimeout: 2000,
+      snackbarVisibility: false,
       timer: null,
       viewer: {login: 'anonymous'}
     }
@@ -253,6 +274,11 @@ export default {
       this.$router.push({name: 'connection'})
     },
 
+    refreshRepositories () {
+      this.$apollo.queries.viewer.refetch()
+      this.snackbarVisibility = true
+    },
+
     relativeTime (previous) {
       return relativeTimeFromNow(previous)
     },
@@ -272,9 +298,6 @@ export default {
             ? edge.node.description.toLocaleLowerCase().indexOf(text) > -1 : false
 
           return foundInTitle || foundInDesc
-          // return edge.node.name.indexOf(text) > -1 ||
-          //   edge.node.description
-          //   ? edge.node.description.toLocaleLowerCase().indexOf(text) > -1 : false
         })
 
       this.noResult = this.filteredRepositories.edges.length === 0

@@ -7,6 +7,8 @@ A minimalist electron app to vizualize your GitHub starred repositories.
 * Visualize your starred repos in a cards layout
 * Fast UI
 * Keep your starred repos open
+* I wanted to learn about graph-ql client-side
+* I wanted to play with Vue and Electron
 
 ## Screenshots
 
