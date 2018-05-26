@@ -324,6 +324,9 @@ export default {
   .starred-repo__title {
     align-items: flex-start;
     flex-direction: column;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .starred-repo__title .headline {

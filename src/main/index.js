@@ -24,11 +24,15 @@ function createWindow () {
    */
   mainWindow = new BrowserWindow({
     height: 563,
+    nodeIntegration: false,
     useContentSize: true,
     width: 1000
   })
 
   mainWindow.loadURL(winURL)
+
+  // open dev tools in prod
+  // mainWindow.webContents.openDevTools()
 
   mainWindow.on('closed', () => {
     mainWindow = null

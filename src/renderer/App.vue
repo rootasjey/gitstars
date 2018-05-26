@@ -33,9 +33,9 @@
 
 <style>
 
-  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+  /* @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro'); */
 
-  .container {
+  #app .container {
     margin: 0;
     padding: 0;
   }

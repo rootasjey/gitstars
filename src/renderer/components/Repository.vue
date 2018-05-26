@@ -85,7 +85,15 @@
       <v-container class="repo-body">
         <v-card class="repo-body__card">
           <v-container>
-            <vue-markdown v-if="repository.readme">{{repository.readme.text}}</vue-markdown>
+            <div
+              v-if="repository.readme"
+              v-html="convertMarkdownToHtml(repository.readme.text)">
+            </div>
+
+            <div
+              v-if="repository.readme2"
+              v-html="convertMarkdownToHtml(repository.readme2.text)">
+            </div>
           </v-container>
         </v-card>
       </v-container>
@@ -108,13 +116,16 @@
 
 <script>
 import gql from 'graphql-tag'
-import {relativeTimeFromNow, diskUsage} from '../utils/utilities'
+import { relativeTimeFromNow, diskUsage } from '../utils/utilities'
 
-import VueMarkdown from 'vue-markdown'
+import showdown from 'showdown'
+
+showdown.setFlavor('github')
+const converter = new showdown.Converter()
 
 export default {
   name: 'repository',
-  components: { VueMarkdown },
+
   data () {
     return {
       preLoadedRepo: {},
@@ -133,6 +144,11 @@ export default {
             nickname
           }
           readme: object (expression: "master:README.md") {
+            ... on Blob {
+              text
+            }
+          }
+          readme2: object (expression: "master:readme.md") {
             ... on Blob {
               text
             }
@@ -162,26 +178,34 @@ export default {
   },
 
   methods: {
-    goToStarred () {
-      this.$router.push({path: '/home'})
-    },
-
-    relativeTime (previous) {
-      return relativeTimeFromNow(previous)
+    convertMarkdownToHtml (markdownText) {
+      return converter.makeHtml(markdownText)
     },
 
     formatDiskUsage (usage) {
       return diskUsage(usage)
     },
 
+    goToStarred () {
+      this.$router.push({path: '/home'})
+    },
+
     openHomepageUrl (url) {
-      const win = new this.$electron.remote.BrowserWindow({width: 800, height: 600})
+      const win = new this.$electron.remote.BrowserWindow({
+        width: 800, height: 600, nodeIntegration: false})
+
       win.loadURL(url)
     },
 
     openRepoPageInNewWindow () {
-      const win = new this.$electron.remote.BrowserWindow({width: 800, height: 600})
+      const win = new this.$electron.remote.BrowserWindow({
+        width: 800, height: 600, nodeIntegration: false})
+
       win.loadURL(this.preLoadedRepo.url)
+    },
+
+    relativeTime (previous) {
+      return relativeTimeFromNow(previous)
     }
   }
 }

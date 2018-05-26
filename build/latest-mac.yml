@@ -1,0 +1,10 @@
+version: 0.0.0
+files:
+  - url: gitstars-0.0.0-mac.zip
+    sha512: 2NeMJGFK9+5DR4EvzfPnmoyYL5sIUrLWkAn9wVRwFYXHSTYL1RKQAVLm84AaZANkOTMSyXG9an9hrpaQvYmTsA==
+  - url: gitstars-0.0.0.dmg
+    sha512: onxMzbdFOAxegHiW/9NhdeI+1wCXhVsyNe6HD8/x6FUofJltO+xcL8/XzotfcIvH/Vlnd7nyOih6sFcyqRsTwA==
+    size: 52496308
+path: gitstars-0.0.0-mac.zip
+sha512: 2NeMJGFK9+5DR4EvzfPnmoyYL5sIUrLWkAn9wVRwFYXHSTYL1RKQAVLm84AaZANkOTMSyXG9an9hrpaQvYmTsA==
+releaseDate: '2018-05-25T19:54:38.934Z'
