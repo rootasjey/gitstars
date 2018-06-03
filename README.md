@@ -10,6 +10,10 @@ A minimalist electron app to vizualize your GitHub starred repositories.
 * _(personal)_ Learn about graph-ql client-side
 * _(personal)_ I wanted to play with Vue and Electron
 
+## Latest update
+
+* Add app's menu
+
 ## Screenshots
 
 ![home-light.png](./screenshots/home-light.png)
