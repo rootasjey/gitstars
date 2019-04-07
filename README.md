@@ -1,3 +1,5 @@
+:warning: This repository is archived and read-only (and its depencies are highly outdated).
+
 # ![app icon](./build/icons/32x32.png) Gitstars
 
 A minimalist electron app to vizualize your GitHub starred repositories.
